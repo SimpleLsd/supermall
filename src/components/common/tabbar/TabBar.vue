@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="tab-bar-container">
     <div id="tab-bar">
       <slot></slot>
     </div>
@@ -15,13 +15,11 @@ export default {
 <style scroped>
 #tab-bar {
   display: flex;
+  position: fixed;
+  width: 375px;
+  bottom: 0;
   height: 49px;
   background-color: #ffffff;
-
   box-shadow: 0 0 5px #0000000f;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 </style>

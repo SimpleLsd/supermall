@@ -4,28 +4,39 @@
       <div slot="center">购物街</div>
       <div slot="center">购物街</div>
     </NavBar>
+    <Swiper :bannerItems="banners"></Swiper>
   </div>
 </template>
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
+import Swiper from 'components/common/swiper/Swiper'
 import { getHomeMultidata } from 'network/home.js'
 
 export default {
   name: 'Home',
+
   components: {
     NavBar,
+    Swiper,
   },
+
   data() {
     return {
-      result: null,
+      banners: {
+        state: '',
+        data: [],
+      },
+      recommends: {},
     }
   },
   created() {
-    // 组件创建后发送网络请求
     getHomeMultidata().then((res) => {
-      console.log(res)
-      this.result = res
+      this.banners = {
+        state: '',
+        data: res.data.banner.list,
+      }
+      this.recommends = res.data.recommend
     })
   },
 }
