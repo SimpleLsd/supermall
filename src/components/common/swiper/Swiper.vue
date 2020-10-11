@@ -2,8 +2,7 @@
   <div>
     <div class="block">
       <el-carousel trigger="click" height="195px" indicator-position="outside">
-        <el-carousel-item v-for="item in bannerItemsF" :key="item.title">
-          <!-- <h3 class="small">{{ item.height }}</h3> -->
+        <el-carousel-item v-for="item in bannerItems" :key="item.title">
           <a :href="item.link">
             <img :src="item.image" :alt="item.title" />
             {{ item.img }}
@@ -17,21 +16,12 @@
 <script>
 export default {
   name: 'Swiper',
-  data() {
-    return {
-      bannerItemsF: [],
-    }
-  },
   props: {
     bannerItems: {
-      type: Object,
-      default: () => [],
-    },
-  },
-  watch: {
-    bannerItems(nv, ov) {
-      this.bannerItemsF = nv.data
-      console.log(this.bannerItemsF)
+      type: Array,
+      default() {
+        return []
+      },
     },
   },
 }
@@ -54,7 +44,7 @@ export default {
   background-color: #d3dce6;
 }
 
-img {
+.el-carousel__item img {
   height: 195px;
   width: 375px;
 }

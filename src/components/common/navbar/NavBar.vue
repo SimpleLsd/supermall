@@ -15,9 +15,12 @@ export default {
 <style scroped>
 .nav-bar {
   display: flex;
+  position: fixed;
+  width: 375px;
+  z-index: 9;
   height: 44px;
   line-height: 44px;
-  box-shadow: 0 0 5px #0000000f;
+  box-shadow: 0 0 5px #00000020;
 }
 .left,
 .right {
