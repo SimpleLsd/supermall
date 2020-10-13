@@ -12,7 +12,7 @@ export function request(config) {
   }), err => {
     console.log(err);
   }
-  // 2. 相应拦截
+  // 2. 响应拦截
   instance.interceptors.response.use(res => {
     return res.data
   }), err => {

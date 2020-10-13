@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="block">
+    <div class="home-swiper">
       <el-carousel trigger="click" height="195px" indicator-position="outside">
         <el-carousel-item v-for="item in bannerItems" :key="item.title">
           <a :href="item.link">
@@ -28,6 +28,9 @@ export default {
 </script>
 
 <style scroped>
+.home-swiper {
+  margin-top: 44px;
+}
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
