@@ -26,6 +26,7 @@ export default {
   methods: {
     itemClick(index) {
       this.currentIndex = index
+      this.$emit('tabClick', index)
     },
   },
   data() {
@@ -44,6 +45,7 @@ export default {
   top: 44px;
   height: 44px;
   line-height: 44px;
+  margin-bottom: 8px;
   font-size: 14px;
   background-color: #fff;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="goods">
-    <GoodsListItem v-for="item in goods.new" :key="item" />
+    <GoodsListItem v-for="item in goods" :key="item.iid" :listItem="item" />
   </div>
 </template>
 
@@ -23,4 +23,10 @@ export default {
 }
 </script>
 
-<style scroped></style>
+<style scroped>
+.goods {
+  width: 375px;
+  flex-wrap: wrap;
+  display: flex;
+}
+</style>

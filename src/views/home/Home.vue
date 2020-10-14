@@ -6,70 +6,8 @@
     <Swiper :bannerItems="banners"></Swiper>
     <RecommendViews :recommends="recommends"></RecommendViews>
     <FeatureView></FeatureView>
-    <TabControl :tabItems="['流行', '新款', '精选']" />
-    <GoodsList :goods="goods" />
-    <ul>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
-      <li>7</li>
-      <li>8</li>
-      <li>9</li>
-      <li>10</li>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
-      <li>7</li>
-      <li>8</li>
-      <li>9</li>
-      <li>10</li>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
-      <li>7</li>
-      <li>8</li>
-      <li>9</li>
-      <li>10</li>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
-      <li>7</li>
-      <li>8</li>
-      <li>9</li>
-      <li>10</li>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
-      <li>7</li>
-      <li>8</li>
-      <li>9</li>
-      <li>10</li>
-      <li>1</li>
-      <li>2</li>
-      <li>3</li>
-      <li>4</li>
-      <li>5</li>
-      <li>6</li>
-      <li>7</li>
-      <li>8</li>
-      <li>9</li>
-      <li>10</li>
-    </ul>
+    <TabControl :tabItems="['流行', '新款', '精选']" @tabClick="tabClick" />
+    <GoodsList :goods="showGoods" />
   </div>
 </template>
 
@@ -97,6 +35,20 @@ export default {
     GoodsList,
   },
   methods: {
+    tabClick(index) {
+      // console.log(index)
+      switch (index) {
+        case 0:
+          this.currentType = 'pop'
+          break
+        case 1:
+          this.currentType = 'new'
+          break
+        case 2:
+          this.currentType = 'sell'
+          break
+      }
+    },
     getHomeMultidata() {
       getHomeMultidata().then((res) => {
         this.banners = res.data.banner.list
@@ -106,10 +58,15 @@ export default {
     getHomeGoods(type) {
       const page = this.goods[type].page + 1
       getHomeGoods(type, page).then((res) => {
-        console.log(res)
+        // console.log(res)
         this.goods[type].list.push(...res.data.list)
         this.goods[type].page += 1
       })
+    },
+  },
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list
     },
   },
 
@@ -122,6 +79,7 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
+      currentType: 'pop',
     }
   },
   created() {
