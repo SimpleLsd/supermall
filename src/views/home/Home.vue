@@ -3,17 +3,23 @@
     <NavBar class="home-nav">
       <div slot="center">购物街</div>
     </NavBar>
-    <Swiper :bannerItems="banners"></Swiper>
-    <RecommendViews :recommends="recommends"></RecommendViews>
-    <FeatureView></FeatureView>
-    <TabControl :tabItems="['流行', '新款', '精选']" @tabClick="tabClick" />
-    <GoodsList :goods="showGoods" />
+
+    <div class="wrapper">
+      <div class="content">
+        <Swiper :bannerItems="banners"></Swiper>
+        <RecommendViews :recommends="recommends"></RecommendViews>
+        <FeatureView></FeatureView>
+        <TabControl :tabItems="['流行', '新款', '精选']" @tabClick="tabClick" />
+        <GoodsList :goods="showGoods" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
 import Swiper from 'components/common/swiper/Swiper'
+import Scroll from 'components/common/scroll/Scroll'
 
 import TabControl from 'components/content/tabControl/TabControl'
 import GoodsList from 'components/content/goods/GoodsList'

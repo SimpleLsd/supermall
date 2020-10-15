@@ -20,7 +20,6 @@ export default {
 @import 'assets/css/base.css';
 #app {
   width: 375px;
-  height: 1000px;
   margin: 0 auto;
 }
 </style>
