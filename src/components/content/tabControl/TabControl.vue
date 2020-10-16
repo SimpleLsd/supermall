@@ -41,7 +41,6 @@ export default {
 .tab-control {
   display: flex;
   justify-content: space-around;
-  position: sticky;
   top: 44px;
   height: 44px;
   line-height: 44px;

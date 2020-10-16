@@ -4,15 +4,15 @@
       <div slot="center">购物街</div>
     </NavBar>
 
-    <div class="wrapper">
-      <div class="content">
-        <Swiper :bannerItems="banners"></Swiper>
-        <RecommendViews :recommends="recommends"></RecommendViews>
-        <FeatureView></FeatureView>
-        <TabControl :tabItems="['流行', '新款', '精选']" @tabClick="tabClick" />
-        <GoodsList :goods="showGoods" />
-      </div>
-    </div>
+    <Scroll class="scroll-content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+      <Swiper :bannerItems="banners"></Swiper>
+      <RecommendViews :recommends="recommends"></RecommendViews>
+      <FeatureView></FeatureView>
+      <TabControl :tabItems="['流行', '新款', '精选']" @tabClick="tabClick" />
+      <GoodsList :goods="showGoods" />
+    </Scroll>
+
+    <BackTop @click.native="backClick" v-show="backTopIsShow" />
   </div>
 </template>
 
@@ -23,6 +23,7 @@ import Scroll from 'components/common/scroll/Scroll'
 
 import TabControl from 'components/content/tabControl/TabControl'
 import GoodsList from 'components/content/goods/GoodsList'
+import BackTop from 'components/content/backTop/BackTop'
 
 import RecommendViews from 'views/home/childComps/RecommendViews'
 import FeatureView from 'views/home/childComps/FeatureView'
@@ -39,6 +40,8 @@ export default {
     FeatureView,
     TabControl,
     GoodsList,
+    Scroll,
+    BackTop,
   },
   methods: {
     tabClick(index) {
@@ -69,6 +72,16 @@ export default {
         this.goods[type].page += 1
       })
     },
+    backClick() {
+      this.$refs.scroll.Scroll.scrollTo(0, 0, 500)
+    },
+    contentScroll(position) {
+      if (position < -400) {
+        this.backTopIsShow = true
+      } else {
+        this.backTopIsShow = false
+      }
+    },
   },
   computed: {
     showGoods() {
@@ -86,6 +99,7 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: 'pop',
+      backTopIsShow: false,
     }
   },
   created() {
@@ -94,15 +108,25 @@ export default {
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
   },
+  mounted() {},
 }
 </script>
 
 <style scroped>
+.home {
+  position: relative;
+}
+
 .home-nav {
   background-color: var(--color-tint);
   color: white;
 }
 li {
   list-style: none;
+}
+.scroll-content {
+  margin-top: 44px;
+  height: calc(100vh - 93px);
+  overflow: hidden;
 }
 </style>
