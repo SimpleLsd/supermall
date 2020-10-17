@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" ref="wrapper">
+  <div ref="wrapper">
     <div class="content">
       <slot></slot>
     </div>
@@ -16,6 +16,10 @@ export default {
       type: Number,
       default: 0,
     },
+    pullUpLoad: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -26,11 +30,15 @@ export default {
     this.Scroll = new BScroll(this.$refs.wrapper, {
       click: true,
       probeType: this.probeType,
+      pullUpLoad: this.pullUpLoad,
       disableMouse: false,
       disableTouch: false,
     })
     this.Scroll.on('scroll', (position) => {
       this.$emit('scroll', position.y)
+    })
+    this.Scroll.on('pullingUp', () => {
+      this.$emit('pullingUp')
     })
   },
 }

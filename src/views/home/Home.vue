@@ -4,7 +4,14 @@
       <div slot="center">购物街</div>
     </NavBar>
 
-    <Scroll class="scroll-content" ref="scroll" :probe-type="3" @scroll="contentScroll">
+    <Scroll
+      class="scroll-content"
+      ref="scroll"
+      :probe-type="3"
+      :pull-up-load="true"
+      @scroll="contentScroll"
+      @pullingUp="loadMore"
+    >
       <Swiper :bannerItems="banners"></Swiper>
       <RecommendViews :recommends="recommends"></RecommendViews>
       <FeatureView></FeatureView>
@@ -45,7 +52,6 @@ export default {
   },
   methods: {
     tabClick(index) {
-      // console.log(index)
       switch (index) {
         case 0:
           this.currentType = 'pop'
@@ -67,9 +73,10 @@ export default {
     getHomeGoods(type) {
       const page = this.goods[type].page + 1
       getHomeGoods(type, page).then((res) => {
-        // console.log(res)
         this.goods[type].list.push(...res.data.list)
         this.goods[type].page += 1
+
+        this.$refs.scroll.Scroll.finishPullUp()
       })
     },
     backClick() {
@@ -81,6 +88,9 @@ export default {
       } else {
         this.backTopIsShow = false
       }
+    },
+    loadMore() {
+      this.getHomeGoods(this.currentType)
     },
   },
   computed: {
@@ -108,15 +118,19 @@ export default {
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
   },
-  mounted() {},
+  mounted() {
+    this.$bus.$on('itemImageLoad', () => {
+      this.$refs.scroll && this.$refs.scroll.Scroll.refresh()
+    })
+  },
 }
 </script>
 
 <style scroped>
 .home {
   position: relative;
+  height: 100%;
 }
-
 .home-nav {
   background-color: var(--color-tint);
   color: white;
