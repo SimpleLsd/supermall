@@ -42,6 +42,7 @@ export default {
   display: flex;
   justify-content: space-around;
   top: 44px;
+  width: 375px;
   height: 44px;
   line-height: 44px;
   margin-bottom: 8px;

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <MainTabBar></MainTabBar>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
@@ -19,7 +21,6 @@ export default {
 <style>
 @import 'assets/css/base.css';
 #app {
-  /* height: 100vh; */
   width: 375px;
   margin: 0 auto;
 }

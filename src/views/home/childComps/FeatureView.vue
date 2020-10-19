@@ -12,6 +12,6 @@ export default {
 
 <style scroped>
 .feature img {
-  width: 100%;
+  width: 375px;
 }
 </style>

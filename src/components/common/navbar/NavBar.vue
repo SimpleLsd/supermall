@@ -15,8 +15,6 @@ export default {
 <style scroped>
 .nav-bar {
   display: flex;
-  position: fixed;
-  top: 0;
   width: 375px;
   z-index: 9;
   height: 44px;

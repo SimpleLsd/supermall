@@ -4,7 +4,7 @@
       <el-carousel trigger="click" height="195px" indicator-position="outside">
         <el-carousel-item v-for="item in bannerItems" :key="item.title">
           <a :href="item.link">
-            <img :src="item.image" :alt="item.title" />
+            <img :src="item.image" :alt="item.title" @load="imageLoad" />
             {{ item.img }}
           </a>
         </el-carousel-item>
@@ -16,6 +16,17 @@
 <script>
 export default {
   name: 'Swiper',
+  data() {
+    return {
+      isLoad: false,
+    }
+  },
+  methods: {
+    imageLoad() {
+      if (!this.isLoad) this.$emit('swiperImageLoad')
+      this.isLoad = true
+    },
+  },
   props: {
     bannerItems: {
       type: Array,

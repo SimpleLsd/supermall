@@ -4,6 +4,14 @@
       <div slot="center">购物街</div>
     </NavBar>
 
+    <TabControl
+      :tabItems="['流行', '新款', '精选']"
+      @tabClick="tabClick"
+      class="tabtop"
+      :class="{ tabIsTop: tabIsTop }"
+      ref="tabcontrol2"
+    />
+
     <Scroll
       class="scroll-content"
       ref="scroll"
@@ -12,10 +20,10 @@
       @scroll="contentScroll"
       @pullingUp="loadMore"
     >
-      <Swiper :bannerItems="banners"></Swiper>
+      <Swiper :bannerItems="banners" @swiperImageLoad="swiperImageLoad"></Swiper>
       <RecommendViews :recommends="recommends"></RecommendViews>
       <FeatureView></FeatureView>
-      <TabControl :tabItems="['流行', '新款', '精选']" @tabClick="tabClick" />
+      <TabControl :tabItems="['流行', '新款', '精选']" @tabClick="tabClick" ref="tabcontrol1" />
       <GoodsList :goods="showGoods" />
     </Scroll>
 
@@ -63,6 +71,8 @@ export default {
           this.currentType = 'sell'
           break
       }
+      this.$refs.tabcontrol1.currentIndex = index
+      this.$refs.tabcontrol2.currentIndex = index
     },
     getHomeMultidata() {
       getHomeMultidata().then((res) => {
@@ -83,14 +93,25 @@ export default {
       this.$refs.scroll.Scroll.scrollTo(0, 0, 500)
     },
     contentScroll(position) {
-      if (position < -400) {
-        this.backTopIsShow = true
-      } else {
-        this.backTopIsShow = false
-      }
+      position < -400 ? (this.backTopIsShow = true) : (this.backTopIsShow = false)
+
+      position < -44 - this.tabOffsetUp ? (this.tabIsTop = true) : (this.tabIsTop = false)
     },
     loadMore() {
       this.getHomeGoods(this.currentType)
+    },
+    debounce(func, delay) {
+      let timer = null
+      return function(...args) {
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(() => {
+          fun.apply(this, args)
+        }, delay)
+      }
+    },
+    swiperImageLoad() {
+      // console.log(this.$refs.tabcontrol.$el.offsetTop)
+      this.tabOffsetUp = this.$refs.tabcontrol1.$el.offsetTop
     },
   },
   computed: {
@@ -110,6 +131,8 @@ export default {
       },
       currentType: 'pop',
       backTopIsShow: false,
+      tabOffsetUp: 0,
+      tabIsTop: false,
     }
   },
   created() {
@@ -132,14 +155,27 @@ export default {
   height: 100%;
 }
 .home-nav {
+  position: absolute;
+  top: 0px;
   background-color: var(--color-tint);
   color: white;
+}
+.tabtop {
+  position: absolute;
+  top: 0px;
+  width: 375px;
+  transition: all 200ms 0s ease-out;
+}
+.tabIsTop {
+  top: 44px;
+  z-index: 8;
 }
 li {
   list-style: none;
 }
 .scroll-content {
-  margin-top: 44px;
+  position: absolute;
+  top: 44px;
   height: calc(100vh - 93px);
   overflow: hidden;
 }
