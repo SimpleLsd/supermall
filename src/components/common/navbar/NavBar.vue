@@ -24,6 +24,9 @@ export default {
 .left,
 .right {
   width: 60px;
+  display: flex;
+  align-items: center;
+  margin: 0 5px;
   /* background-color: blue; */
 }
 .center {

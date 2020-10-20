@@ -1,12 +1,9 @@
 <template>
   <div>
-    <div class="home-swiper">
-      <el-carousel trigger="click" height="195px" indicator-position="outside">
+    <div class="detail-swiper">
+      <el-carousel trigger="click" height="300px" indicator-position="outside">
         <el-carousel-item v-for="item in bannerItems" :key="item.title">
-          <a :href="item.link">
-            <img :src="item.image" :alt="item.title" @load="imageLoad" />
-            {{ item.img }}
-          </a>
+          <img :src="item" @load="imageLoad" />
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -23,7 +20,7 @@ export default {
   },
   methods: {
     imageLoad() {
-      if (!this.isLoad) this.$emit('swiperImageLoad')
+      if (!this.isLoad) this.$emit('detailSwiperImageLoad')
       this.isLoad = true
     },
   },
@@ -39,6 +36,9 @@ export default {
 </script>
 
 <style scroped>
+.detail-swiper {
+  overflow: hidden;
+}
 .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
@@ -56,7 +56,7 @@ export default {
 }
 
 .el-carousel__item img {
-  height: 195px;
-  width: 375px;
+  height: auto;
+  width: 100%;
 }
 </style>
