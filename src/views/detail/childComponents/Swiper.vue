@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="detail-swiper">
-      <el-carousel trigger="click" height="300px" indicator-position="outside">
+      <el-carousel trigger="click" height="240px" indicator-position="outside">
         <el-carousel-item v-for="item in bannerItems" :key="item.title">
           <img :src="item" @load="imageLoad" />
         </el-carousel-item>
