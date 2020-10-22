@@ -3,7 +3,11 @@
     <div class="detail-swiper">
       <el-carousel trigger="click" height="240px" indicator-position="outside">
         <el-carousel-item v-for="item in bannerItems" :key="item.title">
-          <img :src="item" @load="imageLoad" />
+          <!-- <img :src="item" @load="imageLoad" /> -->
+          <div
+            class="image"
+            :style="{ backgroundImage: 'url(http://' + item.slice(2) + ')' }"
+          ></div>
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -39,7 +43,7 @@ export default {
 .detail-swiper {
   overflow: hidden;
 }
-.el-carousel__item h3 {
+/* .el-carousel__item h3 {
   color: #475669;
   font-size: 14px;
   opacity: 0.75;
@@ -53,10 +57,11 @@ export default {
 
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
-}
+} */
 
-.el-carousel__item img {
-  height: auto;
+.el-carousel__item .image {
   width: 100%;
+  height: 100%;
+  background-size: 100%;
 }
 </style>

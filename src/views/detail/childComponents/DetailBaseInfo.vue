@@ -5,14 +5,20 @@
     <div class="info-price">
       <span class="n-price">{{ goodsInfo.price }}</span>
       <span class="o-price">{{ goodsInfo.oldPrice }}</span>
-      <span class="discount" v-if="goodsInfo.discount">
+      <span
+        class="discount"
+        v-if="goodsInfo.discount"
+        :style="{ backgroundColor: goodsInfo.discountBgColor }"
+      >
         {{ goodsInfo.discount }}
       </span>
     </div>
     <div class="info-other">
       <span>{{ goodsInfo.columns[0] }}</span>
       <span>{{ goodsInfo.columns[1] }}</span>
-      <span>{{ goodsInfo.services[goodsInfo.services.length - 1].name }}</span>
+      <span>
+        {{ goodsInfo.services[goodsInfo.services.length - 1].name }}
+      </span>
     </div>
     <div class="info-service">
       <span
@@ -30,6 +36,7 @@
 <script>
 export default {
   name: 'DetailBaseInfo',
+  components: {},
   props: {
     goodsInfo: {
       type: Object,
@@ -50,29 +57,31 @@ export default {
 
 .info-title {
   color: #222;
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .info-price {
   margin-top: 10px;
 }
 
-.info-title .n-price {
+.info-price .n-price {
   font-size: 24px;
   color: var(--color-high-text);
 }
 
-.info-title .o-price {
+.info-price .o-price {
   font-size: 13px;
   margin-left: 5px;
   text-decoration: line-through;
 }
 
 .info-price .discount {
-  font-size: 12px;
-  padding: 2px 5px;
+  font-size: 8px;
+  padding: 3px 4px 3px 1px;
   color: #fff;
   vertical-align: var(--color-high-text);
-  border-radius: 8px;
+  border-radius: 4px;
   margin-left: 5px;
   position: relative;
   top: -8px;
@@ -90,7 +99,7 @@ export default {
 .info-service {
   display: flex;
   justify-content: space-between;
-  line-height: 60px;
+  line-height: 44px;
 }
 
 .info-service-item img {
