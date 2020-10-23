@@ -10,7 +10,9 @@
       <DetailSwiper :topImages="topImages" />
       <DetailBaseInfo :goodsInfo="goodsInfo" />
       <DetailShopInfo :shopInfo="shopInfo" />
-      <div class="blank"></div>
+      <DetailDetailInfo :detailInfo="detailInfo" @imageLoad="imageLoad" />
+      <DetailParamsInfo :info="itemParams" />
+      <DetailComments :comment="commentInfo" />
     </Scroll>
   </div>
 </template>
@@ -20,6 +22,9 @@ import DetailNavBar from './childComponents/DetailNavBar'
 import DetailSwiper from './childComponents/DetailSwiper'
 import DetailBaseInfo from './childComponents/DetailBaseInfo'
 import DetailShopInfo from './childComponents/DetailShopInfo'
+import DetailDetailInfo from './childComponents/DetailDetailInfo'
+import DetailParamsInfo from './childComponents/DetailParamsInfo'
+import DetailComments from './childComponents/DetailComments'
 
 import Scroll from 'components/common/scroll/Scroll'
 
@@ -32,6 +37,9 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    DetailDetailInfo,
+    DetailParamsInfo,
+    DetailComments,
     Scroll,
   },
   methods: {
@@ -45,7 +53,14 @@ export default {
           res.result.shopInfo.services
         )
         this.shopInfo = res.result.shopInfo
+        this.detailInfo = res.result.detailInfo
+        this.itemParams = res.result.itemParams
+        if (res.result.rate !== 0) this.commentInfo = res.result.rate.list[0]
       })
+    },
+    imageLoad() {
+      console.log(11)
+      this.$refs.scroll && this.$refs.scroll.Scroll.refresh()
     },
   },
   data() {
@@ -55,6 +70,9 @@ export default {
       topImages: [],
       goodsInfo: {},
       shopInfo: {},
+      detailInfo: {},
+      itemParams: {},
+      commentInfo: {},
     }
   },
   created() {
